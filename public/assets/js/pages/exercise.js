@@ -133,12 +133,25 @@ let activeInputId = 'math-input-3';
     return answers;
   }
 
-  async function submitExam() {
+ async function submitExam() {
+    const questionsContainer = document.querySelector('main'); // Hoặc container chứa danh sách câu hỏi của bạn
+
+    // Kiểm tra trước khi nộp
+    if (window.EstimateStep && questionsContainer && !EstimateStep.checkBeforeSubmit(questionsContainer)) {
+      return; 
+    }
+
     const modal = document.getElementById('feedback-modal');
     try {
       const result = await window.MathAPI.post('/api/submissions', {
         setId: 'phieu-bai-9-10', answers: collectAnswers(), durationSec: Math.max(0, seconds - 342),
       });
+
+      // Hiển thị feedback ước lượng sau khi nhận kết quả từ server
+      if (window.EstimateStep && questionsContainer && result.estimateFeedback) {
+        EstimateStep.showFeedback(questionsContainer, result.estimateFeedback);
+      }
+
       if (modal) {
         const title = modal.querySelector('h4');
         const desc = modal.querySelector('p');
