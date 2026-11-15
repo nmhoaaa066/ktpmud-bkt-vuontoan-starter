@@ -1553,6 +1553,190 @@
     }
   ],
   "questionSets": {
+  "uoc-luong-nhan": {
+    "lessonId": "bai-10",
+    "title": "Ước lượng trước khi tính: phép nhân",
+    "kind": "exercise",
+    "questions": [
+      {
+        "id": "est-01",
+        "type": "estimate",
+        "prompt": "Ước lượng: 48 × 6 ≈ ?",
+        "correctAnswer": "231-345",
+        "points": 3
+      },
+      {
+        "id": "est-01-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 48 × 6 = ?",
+        "correctAnswer": "288",
+        "points": 5
+      },
+      {
+        "id": "est-02",
+        "type": "estimate",
+        "prompt": "Ước lượng: 52 × 4 ≈ ?",
+        "correctAnswer": "167-249",
+        "points": 3
+      },
+      {
+        "id": "est-02-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 52 × 4 = ?",
+        "correctAnswer": "208",
+        "points": 5
+      },
+      {
+        "id": "est-03",
+        "type": "estimate",
+        "prompt": "Ước lượng: 19 × 7 ≈ ?",
+        "correctAnswer": "107-159",
+        "points": 3
+      },
+      {
+        "id": "est-03-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 19 × 7 = ?",
+        "correctAnswer": "133",
+        "points": 5
+      },
+      {
+        "id": "est-04",
+        "type": "estimate",
+        "prompt": "Ước lượng: 63 × 5 ≈ ?",
+        "correctAnswer": "252-378",
+        "points": 3
+      },
+      {
+        "id": "est-04-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 63 × 5 = ?",
+        "correctAnswer": "315",
+        "points": 5
+      },
+      {
+        "id": "est-05",
+        "type": "estimate",
+        "prompt": "Ước lượng: 87 × 3 ≈ ?",
+        "correctAnswer": "209-313",
+        "points": 3
+      },
+      {
+        "id": "est-05-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 87 × 3 = ?",
+        "correctAnswer": "261",
+        "points": 5
+      },
+      {
+        "id": "est-06",
+        "type": "estimate",
+        "prompt": "Ước lượng: 24 × 8 ≈ ?",
+        "correctAnswer": "154-230",
+        "points": 3
+      },
+      {
+        "id": "est-06-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 24 × 8 = ?",
+        "correctAnswer": "192",
+        "points": 5
+      },
+      {
+        "id": "est-07",
+        "type": "estimate",
+        "prompt": "Ước lượng: 91 × 2 ≈ ?",
+        "correctAnswer": "146-218",
+        "points": 3
+      },
+      {
+        "id": "est-07-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 91 × 2 = ?",
+        "correctAnswer": "182",
+        "points": 5
+      },
+      {
+        "id": "est-08",
+        "type": "estimate",
+        "prompt": "Ước lượng: 38 × 6 ≈ ?",
+        "correctAnswer": "183-273",
+        "points": 3
+      },
+      {
+        "id": "est-08-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 38 × 6 = ?",
+        "correctAnswer": "228",
+        "points": 5
+      }
+    ]
+  },
+  "uoc-luong-chia": {
+    "lessonId": "bai-10",
+    "title": "Ước lượng trước khi tính: phép chia",
+    "kind": "exercise",
+    "questions": [
+      {
+        "id": "est-09",
+        "type": "estimate",
+        "prompt": "Ước lượng: 252 : 6 ≈ ?",
+        "correctAnswer": "34-50",
+        "points": 3
+      },
+      {
+        "id": "est-09-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 252 : 6 = ?",
+        "correctAnswer": "42",
+        "points": 5
+      },
+      {
+        "id": "est-10",
+        "type": "estimate",
+        "prompt": "Ước lượng: 175 : 5 ≈ ?",
+        "correctAnswer": "28-42",
+        "points": 3
+      },
+      {
+        "id": "est-10-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 175 : 5 = ?",
+        "correctAnswer": "35",
+        "points": 5
+      },
+      {
+        "id": "est-11",
+        "type": "estimate",
+        "prompt": "Ước lượng: 328 : 4 ≈ ?",
+        "correctAnswer": "66-98",
+        "points": 3
+      },
+      {
+        "id": "est-11-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 328 : 4 = ?",
+        "correctAnswer": "82",
+        "points": 5
+      },
+      {
+        "id": "est-12",
+        "type": "estimate",
+        "prompt": "Ước lượng: 144 : 6 ≈ ?",
+        "correctAnswer": "20-28",
+        "points": 3
+      },
+      {
+        "id": "est-12-exact",
+        "type": "input",
+        "prompt": "Tính chính xác: 144 : 6 = ?",
+        "correctAnswer": "24",
+        "points": 5
+      }
+    ]
+  }
+},
+    
     "phieu-bai-9-10": {
       "lessonId": "bai-10",
       "title": "Phiếu bài tập: Bảng nhân 6 & Bảng chia 6",
