@@ -172,13 +172,27 @@ router.post('/submissions', requireAuth, (req, res) => {
   if (!meta) return res.status(400).json({ error: 'Bộ bài không hợp lệ.' });
   const questions = db.prepare('SELECT * FROM questions WHERE set_id=? ORDER BY sort_order').all(setId);
   let earned = 0, max = 0, correct = 0;
+  const okById = {};
   const detail = questions.map(q => {
     max += q.points;
     const given = answers[q.id] == null ? '' : String(answers[q.id]).trim().toLowerCase();
-    const ok = given === String(q.correct_answer).trim().toLowerCase();
+    const ok = q.type === 'estimate'
+  ? isReasonableEstimate(given, q.correct_answer)
+  : given === String(q.correct_answer).trim().toLowerCase();
+
+okById[q.id] = ok;
     if (ok) { earned += q.points; correct++; }
     return { questionId: q.id, correct: ok, correctAnswer: q.correct_answer };
   });
+  const estimateFeedback = questions
+  .filter(q => q.type === 'estimate')
+  .map(q => ({
+    id: q.id,
+    ...classifyFeedback(
+      okById[q.id],
+      okById[q.id + '-exact'] === true
+    )
+  }));
   const percent = max ? Math.round((earned / max) * 100) : 0;
 
   // Sao thưởng chỉ tính trên phần % tiến bộ so với điểm cao nhất cũ (chống "cày" sao bằng cách nộp lại)
@@ -197,7 +211,14 @@ router.post('/submissions', requireAuth, (req, res) => {
   });
   tx();
   const me = db.prepare('SELECT total_stars FROM users WHERE id=?').get(req.user.id);
-  res.json({ scorePercent: percent, correctCount: correct, totalCount: questions.length, starsEarned, totalStars: me.total_stars, detail });
+  res.json({
+  scorePercent: percent,
+  correctCount: correct,
+  totalCount: questions.length,
+  starsEarned,
+  totalStars: me.total_stars,
+  detail,
+  estimateFeedback
 });
 
 /* ---------------- Bảng xếp hạng (tính từ dữ liệu thật) ---------------- */
