@@ -61,58 +61,70 @@ Tình trạng chung: xong giai đoạn M1 (yêu cầu, ADR, kế hoạch test); 
 
 ## PC-2 — 18/11/2026
 
-2.1. Đối chiếu timeline PC-1
-Việc (theo bảng 1.3)	Kế hoạch	Thực tế	Lệch & lý do
-Đọc mã nguồn, xác nhận 5 điểm ở REQUIREMENTS Mục 7, chuyển ADR từ Đề xuất sang Chấp nhận	12/11	15/11: đã đọc `server/api.js`; xác nhận cấu trúc `detail`, route lấy câu hỏi chọn theo danh sách cột (không có `correct_answer`), cách tính điểm/sao. Còn lại: cách `exercise.js` chọn bộ đề, đăng nhập test	Trễ khoảng 3 ngày; còn 2/5 điểm chưa đóng hết
-Hàm thuần `computeEstimateBand`, `parseBand`, `isReasonableEstimate`, `classifyFeedback` + unit test	13/11	Xong: `server/estimate.js`, `test/estimate.test.js`; `npm test` 12/12 đạt, CI xanh	Không xác định được ngày commit từ log CI (commit có trước CI #1); xem `git log -- server/estimate.js`
-Nhánh chấm `estimate` trong `server/api.js`, thêm trường vào `detail`, che đáp án	14/11	15–16/11: CI #5 `480a078` (import hàm, 23:47 15/11), CI #6 `73bcd02` (thêm `estimateFeedback`, 00:08 16/11)	Trễ khoảng 1–2 ngày; chưa kiểm bằng `curl`
-12 fixture trong `data/seed.json`, gắn vào bài học đích, kiểm tra `reset-db`	14/11	15/11: CI #2 `6a91a61` (script sinh fixture, 22:06), CI #4 `dbdac0c` (question sets, 22:32)	Trễ khoảng 1 ngày; chưa kiểm số lượng và `reset-db`
-Giao diện hai bước trong `exercise.js` (bàn phím, `aria-live`)	15/11	CI #3 `8c44792` (22:07 15/11), CI #7 `ab1bda0` (00:29 16/11), CI #8 `1890660` (00:39 16/11)	Hoàn tất lúc 00:39 ngày 16/11, trễ khoảng 40 phút; chưa thử tay bàn phím/`aria-live`
-Test API/tích hợp, hồi quy 4 type cũ	16–17/11	Chưa thực hiện	Chưa đến hạn
-`npm test`, workflow CI trên Node 18 và 20	17/11	15/11: CI #1 `dc72b1e` (22:03); 8/8 lần chạy trên `main` đều xanh	Sớm hơn kế hoạch 2 ngày; cần đối chiếu `ci.yml` có chạy trên cả Node 18 và 20
-Rà bảo mật/quyền riêng tư, `TEST_REPORT.md`, `SECURITY_PRIVACY_CHECKLIST.md`, `AI_USE.md`, `CONTRIBUTIONS.md`	18/11	Khung các file đã có và đã điền phần có bằng chứng; chưa rà bảo mật	Chưa đến hạn
-Slide/demo ≤ 7 phút, đóng băng, gắn tag	19–20/11	Kịch bản demo đã có; slide và tag chưa làm	Chưa đến hạn
-2.2. Tiến độ theo acceptance criteria (cập nhật toàn bộ bảng 1.1)
-Mã	Trạng thái	Bằng chứng	Ghi chú
-B-01	Đang	CI #4 `dbdac0c` (question sets)	Chưa xác nhận bộ estimate xuất hiện trong luồng bài học
-B-02	Đang	CI #2 `6a91a61`, CI #4 `dbdac0c`	Chưa kiểm đủ 12 câu và `reset-db` bằng script
-B-03	Xong	`server/estimate.js`; `npm test` 12/12 đạt; CI xanh	Quy tắc ±20% đã có test từng giá trị biên và 12 fixture
-B-04	Đang	Đã rà mã: route lấy câu hỏi chỉ chọn `id,type,prompt,options_json,points,category`	Chưa có kết quả `curl` / test API
-B-05	Đang	CI #5 `480a078`, CI #6 `73bcd02`	Chưa kiểm lưu `attempts`/`progress` và hồi quy bộ cũ
-B-06	Đang	CI #6 (`estimateFeedback`), CI #8 (hiển thị phản hồi); T-UNIT-09 đạt	Chưa thử tay 4 thông điệp
-B-07	Chưa	—	Chưa chạy `git diff --stat bkt-2026-v1..HEAD`
-B-08	Đang	T-UNIT-05…07 đạt (mức hàm)	Chưa có test mức API
-B-09	Xong	`npm test`: 12 pass, 0 fail; CI #8 xanh	—
-B-10	Xong	`.github/workflows/ci.yml`; CI #1…#8 đều xanh	Cần đối chiếu Node 18 và 20
-B-11	Chưa	—	Chưa quét secret/PII
-B-12	Đang	CI #3 `8c44792`, CI #7 `ab1bda0`, CI #8 `1890660`	Chưa thử tay bàn phím, thông báo lỗi, `aria-live`
-2.3. Sẵn sàng nộp bài (đề thi Mục 6)
-Deliverable	Có / Chưa	Đường dẫn
-README.md (cài đặt / chạy / test)	Có	`README.md`
-REQUIREMENTS.md	Có	`artifacts/REQUIREMENTS.md`
-DECISIONS.md / ADR	Có	`artifacts/DECISIONS.md`
-Test tự động + CI xanh	Có	`test/`, `.github/workflows/ci.yml`; CI #8 xanh
-TEST_REPORT.md	Có	`artifacts/TEST_REPORT.md` (đã điền phần unit và CI; các ca API/giao diện cập nhật trước Freeze)
-SECURITY_PRIVACY_CHECKLIST.md	Chưa	`artifacts/SECURITY_PRIVACY_CHECKLIST.md` (khung, chưa kiểm hết)
-AI_USE.md	Có	`artifacts/AI_USE.md` (cập nhật tiếp khi có thay đổi)
-CONTRIBUTIONS.md	Có	`artifacts/CONTRIBUTIONS.md` (theo vai trò, kèm commit)
-Slide / demo script ≤ 7 phút	Chưa	`slides/DEMO_SCRIPT.md` (có kịch bản, chưa có slide)
-Draft PR vào `ktpmud-project`, check `validate` xanh	Chưa	Mở trước 11:30 ngày 18/11
-2.4. Việc còn lại đến Freeze (23:59 19/11)
-Việc	Vai trò phụ trách	Hạn
-Thử tay giao diện (T-UI-01…04) và `curl` API (T-API-01…07), ghi kết quả vào TEST_REPORT	QA	16/11
-Test API/tích hợp, hồi quy 4 type cũ; sửa lỗi phát sinh	BE	17/11
-Rà bảo mật/quyền riêng tư (`git diff` vùng cấm, quét secret, dependency) và hoàn tất SECURITY_PRIVACY_CHECKLIST	QA	18/11
-Cập nhật `PROGRESS.md` PC-2, mở Draft PR vào `ktpmud-project`, chờ `validate` xanh, comment issue #18 (9:30–11:30)	Lead	18/11, trước 11:30
-Cập nhật kết quả thật vào TEST_REPORT và AI_USE (CONTRIBUTIONS đã có); làm slide	Docs, Lead	19/11
-Chạy lại `npm ci && npm run reset-db && npm test` từ clean checkout; gắn tag `bkt-2026-28-rc1`, ghi SHA 40 ký tự	Lead	19/11, trước 23:59
-Cập nhật `source-ref.json`, chuyển Draft PR sang Ready for review	Lead	20/11
-2.5. Rủi ro / câu hỏi cho GV
-Giao diện đã commit nhưng chưa thử tay; nếu lỗi sẽ ảnh hưởng demo. Ưu tiên thử tay ngay.
-Các lần commit hiển thị trên CI đến từ một tài khoản; cần bảo đảm mọi thành viên có đóng góp ghi nhận được (commit/PR/review) và giải thích được phần của mình.
-Chưa xác nhận bộ estimate xuất hiện đúng bài học và luồng học hiện có (B-01).
-Route thống kê giáo viên tính câu `estimate` là sai vì so sánh chuỗi chính xác; không sửa do ngoài phạm vi (ghi trong TEST_REPORT).
-Q1 (hỏi trong thread Track B #32, mở đầu `Nhóm: 28`): xác nhận ngưỡng ±20% (ADR-003) có chấp nhận được không.
+## 2.1. Đối chiếu timeline PC-1
+
+| Việc (theo bảng 1.3) | Kế hoạch | Thực tế | Lệch & lý do |
+|---|---|---|---|
+| Đọc mã nguồn, xác nhận 5 điểm ở REQUIREMENTS Mục 7, chuyển ADR từ Đề xuất sang Chấp nhận | 12/11 | 15/11: đã đọc `server/api.js`; xác nhận cấu trúc `detail`, route lấy câu hỏi chọn theo danh sách cột (không có `correct_answer`), cách tính điểm/sao. Còn lại: cách `exercise.js` chọn bộ đề, đăng nhập test | Trễ khoảng 3 ngày; còn 2/5 điểm chưa đóng hết |
+| Hàm thuần `computeEstimateBand`, `parseBand`, `isReasonableEstimate`, `classifyFeedback` + unit test | 13/11 | Xong: `server/estimate.js`, `test/estimate.test.js`; `npm test` 12/12 đạt, CI xanh | Không xác định được ngày commit từ log CI (commit có trước CI #1); xem `git log -- server/estimate.js` |
+| Nhánh chấm `estimate` trong `server/api.js`, thêm trường vào `detail`, che đáp án | 14/11 | 15–16/11: CI #5 `480a078` (import hàm, 23:47 15/11), CI #6 `73bcd02` (thêm `estimateFeedback`, 00:08 16/11) | Trễ khoảng 1–2 ngày; chưa kiểm bằng `curl` |
+| 12 fixture trong `data/seed.json`, gắn vào bài học đích, kiểm tra `reset-db` | 14/11 | 15/11: CI #2 `6a91a61` (script sinh fixture, 22:06), CI #4 `dbdac0c` (question sets, 22:32) | Trễ khoảng 1 ngày; chưa kiểm số lượng và `reset-db` |
+| Giao diện hai bước trong `exercise.js` (bàn phím, `aria-live`) | 15/11 | CI #3 `8c44792` (22:07 15/11), CI #7 `ab1bda0` (00:29 16/11), CI #8 `1890660` (00:39 16/11) | Hoàn tất lúc 00:39 ngày 16/11, trễ khoảng 40 phút; chưa thử tay bàn phím/`aria-live` |
+| Test API/tích hợp, hồi quy 4 type cũ | 16–17/11 | Chưa thực hiện | Chưa đến hạn |
+| `npm test`, workflow CI trên Node 18 và 20 | 17/11 | 15/11: CI #1 `dc72b1e` (22:03); 8/8 lần chạy trên `main` đều xanh | Sớm hơn kế hoạch 2 ngày; cần đối chiếu `ci.yml` có chạy trên cả Node 18 và 20 |
+| Rà bảo mật/quyền riêng tư, `TEST_REPORT.md`, `SECURITY_PRIVACY_CHECKLIST.md`, `AI_USE.md`, `CONTRIBUTIONS.md` | 18/11 | Khung các file đã có và đã điền phần có bằng chứng; chưa rà bảo mật | Chưa đến hạn |
+| Slide/demo ≤ 7 phút, đóng băng, gắn tag | 19–20/11 | Kịch bản demo đã có; slide và tag chưa làm | Chưa đến hạn |
+
+## 2.2. Tiến độ theo acceptance criteria (cập nhật toàn bộ bảng 1.1)
+
+| Mã | Trạng thái | Bằng chứng | Ghi chú |
+|---|---|---|---|
+| B-01 | Đang | CI #4 `dbdac0c` (question sets) | Chưa xác nhận bộ estimate xuất hiện trong luồng bài học |
+| B-02 | Đang | CI #2 `6a91a61`, CI #4 `dbdac0c` | Chưa kiểm đủ 12 câu và `reset-db` bằng script |
+| B-03 | Xong | `server/estimate.js`; `npm test` 12/12 đạt; CI xanh | Quy tắc ±20% đã có test từng giá trị biên và 12 fixture |
+| B-04 | Đang | Đã rà mã: route lấy câu hỏi chỉ chọn `id,type,prompt,options_json,points,category` | Chưa có kết quả `curl` / test API |
+| B-05 | Đang | CI #5 `480a078`, CI #6 `73bcd02` | Chưa kiểm lưu `attempts`/`progress` và hồi quy bộ cũ |
+| B-06 | Đang | CI #6 (`estimateFeedback`), CI #8 (hiển thị phản hồi); T-UNIT-09 đạt | Chưa thử tay 4 thông điệp |
+| B-07 | Chưa | — | Chưa chạy `git diff --stat bkt-2026-v1..HEAD` |
+| B-08 | Đang | T-UNIT-05…07 đạt (mức hàm) | Chưa có test mức API |
+| B-09 | Xong | `npm test`: 12 pass, 0 fail; CI #8 xanh | — |
+| B-10 | Xong | `.github/workflows/ci.yml`; CI #1…#8 đều xanh | Cần đối chiếu Node 18 và 20 |
+| B-11 | Chưa | — | Chưa quét secret/PII |
+| B-12 | Đang | CI #3 `8c44792`, CI #7 `ab1bda0`, CI #8 `1890660` | Chưa thử tay bàn phím, thông báo lỗi, `aria-live` |
+
+## 2.3. Sẵn sàng nộp bài (đề thi Mục 6)
+
+| Deliverable | Có / Chưa | Đường dẫn |
+|---|---|---|
+| README.md (cài đặt / chạy / test) | Có | `README.md` |
+| REQUIREMENTS.md | Có | `artifacts/REQUIREMENTS.md` |
+| DECISIONS.md / ADR | Có | `artifacts/DECISIONS.md` |
+| Test tự động + CI xanh | Có | `test/`, `.github/workflows/ci.yml`; CI #8 xanh |
+| TEST_REPORT.md | Có | `artifacts/TEST_REPORT.md` (đã điền phần unit và CI; các ca API/giao diện cập nhật trước Freeze) |
+| SECURITY_PRIVACY_CHECKLIST.md | Chưa | `artifacts/SECURITY_PRIVACY_CHECKLIST.md` (khung, chưa kiểm hết) |
+| AI_USE.md | Có | `artifacts/AI_USE.md` (cập nhật tiếp khi có thay đổi) |
+| CONTRIBUTIONS.md | Có | `artifacts/CONTRIBUTIONS.md` (theo vai trò, kèm commit) |
+| Slide / demo script ≤ 7 phút | Chưa | `slides/DEMO_SCRIPT.md` (có kịch bản, chưa có slide) |
+| Draft PR vào `ktpmud-project`, check `validate` xanh | Chưa | Mở trước 11:30 ngày 18/11 |
+
+## 2.4. Việc còn lại đến Freeze (23:59 19/11)
+
+| Việc | Vai trò phụ trách | Hạn |
+|---|---|---|
+| Thử tay giao diện (T-UI-01…04) và `curl` API (T-API-01…07), ghi kết quả vào TEST_REPORT | QA | 16/11 |
+| Test API/tích hợp, hồi quy 4 type cũ; sửa lỗi phát sinh | BE | 17/11 |
+| Rà bảo mật/quyền riêng tư (`git diff` vùng cấm, quét secret, dependency) và hoàn tất SECURITY_PRIVACY_CHECKLIST | QA | 18/11 |
+| Cập nhật `PROGRESS.md` PC-2, mở Draft PR vào `ktpmud-project`, chờ `validate` xanh, comment issue #18 (9:30–11:30) | Lead | 18/11, trước 11:30 |
+| Cập nhật kết quả thật vào TEST_REPORT và AI_USE (CONTRIBUTIONS đã có); làm slide | Docs, Lead | 19/11 |
+| Chạy lại `npm ci && npm run reset-db && npm test` từ clean checkout; gắn tag `bkt-2026-28-rc1`, ghi SHA 40 ký tự | Lead | 19/11, trước 23:59 |
+| Cập nhật `source-ref.json`, chuyển Draft PR sang Ready for review | Lead | 20/11 |
+
+## 2.5. Rủi ro / câu hỏi cho GV
+
+- Giao diện đã commit nhưng chưa thử tay; nếu lỗi sẽ ảnh hưởng demo. Ưu tiên thử tay ngay.
+- Các lần commit hiển thị trên CI đến từ một tài khoản; cần bảo đảm mọi thành viên có đóng góp ghi nhận được (commit/PR/review) và giải thích được phần của mình.
+- Chưa xác nhận bộ estimate xuất hiện đúng bài học và luồng học hiện có (B-01).
+- Route thống kê giáo viên tính câu `estimate` là sai vì so sánh chuỗi chính xác; không sửa do ngoài phạm vi (ghi trong TEST_REPORT).
 
 ## Kết quả cuối — Freeze 19/11/2026
 - Tag: bkt-2026-28-rc1 · SHA: 
