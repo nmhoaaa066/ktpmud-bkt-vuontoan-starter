@@ -221,6 +221,8 @@ okById[q.id] = ok;
   estimateFeedback
 });
 
+});
+
 /* ---------------- Bảng xếp hạng (tính từ dữ liệu thật) ---------------- */
 router.get('/leaderboard', requireAuth, (req, res) => {
   const rows = db.prepare(`SELECT u.id,u.full_name,u.class_name,u.total_stars,
